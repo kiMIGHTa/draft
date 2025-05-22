@@ -2,7 +2,7 @@ import yt_dlp
 import ffmpeg
 import os
 
-def extract_audio_segment(url, output_dir):
+def extract_yt_audio_segment(url, output_dir):
     try:
         # Create output directory if it doesn't exist
         os.makedirs(os.path.dirname(output_dir), exist_ok=True)
