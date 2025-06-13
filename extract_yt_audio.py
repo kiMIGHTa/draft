@@ -1,8 +1,9 @@
+# extract_yt_audio.py
 import yt_dlp
 import ffmpeg
 import os
 
-def extract_audio_segment(url, output_dir):
+def extract_yt_audio_segment(url, output_dir):
     try:
         # Create output directory if it doesn't exist
         os.makedirs(os.path.dirname(output_dir), exist_ok=True)
@@ -42,7 +43,7 @@ def extract_audio_segment(url, output_dir):
             'quiet': True,
         }
 
-        print("Downloading audio from YouTube...")
+        print("Downloading audio from URL...")
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
