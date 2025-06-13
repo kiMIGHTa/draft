@@ -43,7 +43,7 @@ def extract_yt_audio_segment(url, output_dir):
             'quiet': True,
         }
 
-        print("Downloading audio from YouTube...")
+        print("Downloading audio from URL...")
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
