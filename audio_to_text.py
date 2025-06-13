@@ -3,7 +3,8 @@ import whisper
 from whisper.utils import get_writer
 import os
 
-def transcribe_audio(audio_path, output_dir=None, model_size="small"):
+
+def transcribe_audio(audio_path, output_dir=None, model_size="small", translate=False):
     """
     Converts audio file to text transcript
     Returns path to transcript file or None if failed
@@ -15,7 +16,13 @@ def transcribe_audio(audio_path, output_dir=None, model_size="small"):
         model = whisper.load_model(model_size)
 
         print("Transcribing audio...")
-        result = model.transcribe(audio_path)
+        result = model.transcribe(
+            audio_path, verbose=True,task='translate' if translate else 'transcribe')
+
+        # Detect the language
+        language = result['language']
+
+        print(f"Language Detected: {language}")
 
         # Generate output filenames
         base_name = os.path.splitext(os.path.basename(audio_path))[0]
@@ -31,8 +38,9 @@ def transcribe_audio(audio_path, output_dir=None, model_size="small"):
 
         print(f"Transcript saved to: {txt_path}")
         print(f"Subtitles saved to: {srt_path}")
-        return txt_path
+
+        return txt_path, language
 
     except Exception as e:
         print(f"Transcription error: {str(e)}")
-        return None
+        return None, None
