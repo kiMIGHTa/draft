@@ -29,17 +29,23 @@ def process_video(input_dir, translate=False):
 
         if not audio:
             print("Failed to download and convert audio")
-
-        transcript_file, language = transcribe_audio(
+            return None
+            
+        txt_path, srt_path, vtt_path, language = transcribe_audio(
             audio, output_dir, translate=translate)
-        
-        if not transcript_file:
+
+        if not txt_path:
             print("Failed to transcribe audio.")
             return None
 
-        print(f"Transcribed in {language}. File: {transcript_file}")
+        print(f"Transcribed in {language}. File: {txt_path}")
 
-        return f"Transcribed in {language}. File: {transcript_file}"
+        return {
+            "language": language,
+            "txt": txt_path,
+            "srt": srt_path,
+            "vtt": vtt_path
+        }
 
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -48,6 +54,7 @@ def process_video(input_dir, translate=False):
 
 if __name__ == "__main__":
     input_dir = input("Enter a video or audio URL or local path: ").strip()
-    translate = input("Do you want to translate to English? (y/n): ").lower().strip() == 'y'
+    translate = input(
+        "Do you want to translate to English? (y/n): ").lower().strip() == 'y'
 
     process_video(input_dir, translate=translate)

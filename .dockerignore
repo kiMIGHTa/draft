@@ -1,0 +1,15 @@
+.git
+.gitignore
+.venv
+.vscode
+.hypothesis
+.pytest_cache
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+*.egg-info
+tests/
+data/audio/
+*.md
+.kiro/
