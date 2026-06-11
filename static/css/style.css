@@ -1,0 +1,281 @@
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root {
+  --bg: #111827;
+  --card: #1f2937;
+  --accent: #3b82f6;
+  --success: #10b981;
+  --error: #ef4444;
+  --radius: 12px;
+
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --border: #374151;
+}
+
+/* ============================================================
+   Reset / base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+header {
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+header p {
+  margin-top: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   Cards / panels
+   ============================================================ */
+#input-section,
+#translate-row,
+#status-area,
+#results {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+
+/* ============================================================
+   Mode toggle
+   ============================================================ */
+#mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 0.55rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.mode-btn:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.mode-btn.active {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* ============================================================
+   Input panels
+   ============================================================ */
+.input-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-panel label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-panel input[type="file"],
+.input-panel input[type="url"] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input-panel input[type="file"]:focus,
+.input-panel input[type="url"]:focus {
+  border-color: var(--accent);
+}
+
+.inline-error {
+  font-size: 0.8rem;
+  color: var(--error);
+  min-height: 1em;
+}
+
+/* ============================================================
+   Translate row
+   ============================================================ */
+#translate-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+#translate-row input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ============================================================
+   Start button
+   ============================================================ */
+#start-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+#start-btn:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+#start-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   Status area
+   ============================================================ */
+#status-area {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+#status-area.error {
+  color: var(--error);
+}
+
+/* ============================================================
+   Results section
+   ============================================================ */
+#results {
+  transition: opacity 0.2s ease;
+}
+
+#results h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--success);
+}
+
+#results p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+#results #detected-language {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+#download-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.download-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.6rem 1rem;
+  background-color: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.download-btn:hover {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.hidden {
+  display: none;
+}
