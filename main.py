@@ -4,6 +4,7 @@ import re
 from extract_yt_audio import extract_yt_audio_segment
 from audio_to_text import transcribe_audio
 from extract_local_audio import extract_local_audio_segment
+from pathlib import Path
 
 
 def is_url(input_dir):
@@ -12,8 +13,8 @@ def is_url(input_dir):
 
 def process_video(input_dir, translate=False):
     try:
-        output_dir = os.path.join(
-            os.path.expanduser("~"), "Downloads", "audio")
+        output_dir = str(Path.home() / "Downloads" / "audio")
+
 
         # download audio
         if is_url(input_dir):
