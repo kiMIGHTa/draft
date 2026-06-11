@@ -1,0 +1,10 @@
+services:
+  whisper-transcriber:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data/audio:/app/data/audio
+    environment:
+      - FLASK_APP=app.py
+      - PYTHONUNBUFFERED=1
