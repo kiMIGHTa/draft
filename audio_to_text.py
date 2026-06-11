@@ -3,15 +3,13 @@ import whisper
 from whisper.utils import get_writer
 import os
 
-MODEL_CACHE = {}
+# Load once at startup (Docker/build time or app startup)
+print("Preloading Whisper model...")
+MODEL = whisper.load_model("small")
+print("Whisper model ready.")
 
-def get_model(model_size):
-    if model_size not in MODEL_CACHE:
-        print(f"Loading Whisper model: {model_size}")
-        MODEL_CACHE[model_size] = whisper.load_model(model_size)
-    return MODEL_CACHE[model_size]
 
-def transcribe_audio(audio_path, output_dir=None, model_size="base", translate=False):
+def transcribe_audio(audio_path, output_dir=None, translate=False):
     """
     Converts audio file to text transcript
     Returns path to transcript file or None if failed
@@ -25,10 +23,10 @@ def transcribe_audio(audio_path, output_dir=None, model_size="base", translate=F
         
 
         # print(f"Loading Whisper model ({model_size})...")
-        model = get_model(model_size)
+        # model = MODEL
 
         print("Transcribing audio...")
-        result = model.transcribe(
+        result = MODEL.transcribe(
             audio_path, verbose=True,task='translate' if translate else 'transcribe')
 
         # Detect the language
@@ -62,3 +60,12 @@ def transcribe_audio(audio_path, output_dir=None, model_size="base", translate=F
     except Exception as e:
         print(f"Transcription error: {str(e)}")
         return None, None, None, None
+    
+    # clean up audio files
+    finally:
+        try:
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
+                print(f"Deleted temporary audio: {audio_path}")
+        except Exception as cleanup_error:
+            print(f"Cleanup error: {cleanup_error}")

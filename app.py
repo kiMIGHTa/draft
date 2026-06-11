@@ -47,7 +47,6 @@ def transcribe():
             txt_path, srt_path, vtt_path, language = transcribe_audio(
                 audio_path,
                 output_dir=OUTPUT_DIR,
-                model_size="base",
                 translate=translate,
             )
         finally:
@@ -65,7 +64,6 @@ def transcribe():
         txt_path, srt_path, vtt_path, language = transcribe_audio(
             audio_path,
             output_dir=OUTPUT_DIR,
-            model_size="base",
             translate=translate,
         )
 
