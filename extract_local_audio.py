@@ -9,7 +9,7 @@ def extract_local_audio_segment(input_path, output_dir):
 
         # Get base filename without extension
         base_name = os.path.splitext(os.path.basename(input_path))[0]
-        output_filename = f"{base_name}.wav"
+        output_filename = f"{base_name}_processed.mp3"
         output_file = os.path.join(output_dir, output_filename)
 
         print("Extracting audio from local file...")
@@ -18,9 +18,9 @@ def extract_local_audio_segment(input_path, output_dir):
             ffmpeg
             .input(input_path)
             .output(output_file, 
-                    acodec='pcm_s16le',  # 16-bit PCM
-                    ar='48000',           # 48kHz sample rate
-                    ac=2,                 # Stereo
+                    acodec='libmp3lame', 
+                    ar='48000',           
+                    ac=2,                 
                     af='loudnorm=I=-16:TP=-1.5:LRA=11')  # Loudness normalization
             .run(overwrite_output=True)
         )
