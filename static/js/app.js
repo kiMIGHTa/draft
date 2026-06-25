@@ -21,6 +21,7 @@
   const downloadTxt = document.getElementById("download-txt");
   const downloadSrt = document.getElementById("download-srt");
   const downloadVtt = document.getElementById("download-vtt");
+  const downloadPdf = document.getElementById("download-pdf");
 
   // ── Supported extensions (mirrors server allowlist) ────────────────────────
   const SUPPORTED_EXTENSIONS = new Set([
@@ -119,6 +120,7 @@
     downloadTxt.href = "/download/" + encodeURIComponent(data.txt_file);
     downloadSrt.href = "/download/" + encodeURIComponent(data.srt_file);
     downloadVtt.href = "/download/" + encodeURIComponent(data.vtt_file);
+    downloadPdf.href = "/download/" + encodeURIComponent(data.pdf_file);
     resultsSection.classList.remove("hidden");
   }
 
@@ -128,6 +130,7 @@
     downloadTxt.href = "#";
     downloadSrt.href = "#";
     downloadVtt.href = "#";
+    downloadPdf.href = "#";
   }
 
   // ── 8.5 Error handler ──────────────────────────────────────────────────────

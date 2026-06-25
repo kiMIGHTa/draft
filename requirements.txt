@@ -6,3 +6,4 @@ requests==2.32.3
 pytest==8.3.5
 hypothesis==6.131.14
 gunicorn==21.2.0
+reportlab==5.0.0

@@ -41,7 +41,7 @@ def extract_yt_audio_segment(url, output_dir):
         )
 
         # -------------------------
-        # 🔥 FIXED yt-dlp CONFIG
+        #  FIXED yt-dlp CONFIG
         # -------------------------
         ydl_opts = {
             # IMPORTANT: force real audio formats first
@@ -63,7 +63,7 @@ def extract_yt_audio_segment(url, output_dir):
             "cookiesfrombrowser": ("chrome",),
 
             # -------------------------
-            # 🔥 CLIENT FALLBACK STRATEGY
+            # CLIENT FALLBACK STRATEGY
             # -------------------------
             "extractor_args": {
                 "youtube": {
