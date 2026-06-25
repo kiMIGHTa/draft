@@ -2,8 +2,8 @@
 import whisper
 from whisper.utils import get_writer
 import os
+from utils.pdf import generate_pdf
 
-# Load once at startup (Docker/build time or app startup)
 print("Preloading Whisper model...")
 MODEL = whisper.load_model("small")
 print("Whisper model ready.")
@@ -20,14 +20,12 @@ def transcribe_audio(audio_path, output_dir=None, translate=False):
 
         os.makedirs(output_dir, exist_ok=True)
 
-        
-
         # print(f"Loading Whisper model ({model_size})...")
         # model = MODEL
 
         print("Transcribing audio...")
         result = MODEL.transcribe(
-            audio_path, verbose=True,task='translate' if translate else 'transcribe')
+            audio_path, verbose=True, task='translate' if translate else 'transcribe')
 
         # Detect the language
         language = result['language']
@@ -47,20 +45,23 @@ def transcribe_audio(audio_path, output_dir=None, translate=False):
         srt_writer = get_writer("srt", output_dir)
         srt_writer(result, audio_path)
 
-
         vtt_writer = get_writer("vtt", output_dir)
         vtt_writer(result, audio_path)
-        
+
+        pdf_path = os.path.join(output_dir, f"{base_name}.pdf")
+        generate_pdf(result, pdf_path)
+
         print(f"Transcript saved to: {txt_path}")
         print(f"SRT Subtitles saved to: {srt_path}")
         print(f"VTT Subtitles saved to: {vtt_path}")
+        print(f"PDF saved to: {pdf_path}")
 
-        return txt_path, srt_path, vtt_path, language
+        return txt_path, srt_path, vtt_path, pdf_path, language
 
     except Exception as e:
         print(f"Transcription error: {str(e)}")
-        return None, None, None, None
-    
+        return None, None, None, None, None
+
     # clean up audio files
     finally:
         try:

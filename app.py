@@ -44,7 +44,7 @@ def transcribe():
                 saved_path, output_dir=OUTPUT_DIR)
             if not audio_path:
                 return jsonify({"success": False, "message": "ffmpeg failed."}), 500
-            txt_path, srt_path, vtt_path, language = transcribe_audio(
+            txt_path, srt_path, vtt_path, pdf_path, language = transcribe_audio(
                 audio_path,
                 output_dir=OUTPUT_DIR,
                 translate=translate,
@@ -61,13 +61,13 @@ def transcribe():
         audio_path = extract_yt_audio_segment(youtube_url, OUTPUT_DIR)
         if not audio_path:
             return jsonify({"success": False, "message": "Download failed."}), 500
-        txt_path, srt_path, vtt_path, language = transcribe_audio(
+        txt_path, srt_path, vtt_path, pdf_path, language = transcribe_audio(
             audio_path,
             output_dir=OUTPUT_DIR,
             translate=translate,
         )
 
-    if not txt_path or not srt_path or not vtt_path:
+    if not txt_path or not srt_path or not vtt_path or not pdf_path:
         return jsonify({"success": False, "message": "Whisper failed."}), 500
 
     return jsonify({
@@ -76,6 +76,7 @@ def transcribe():
         "txt_file": os.path.basename(txt_path),
         "srt_file": os.path.basename(srt_path),
         "vtt_file": os.path.basename(vtt_path),
+        "pdf_file": os.path.basename(pdf_path),
         "message": "Transcription completed",
     }), 200
 
